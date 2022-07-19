@@ -9,7 +9,7 @@ from rest_framework.response import Response
 
 class PhotoView(viewsets.ModelViewSet):
     serializer_class = PhotoSerializer
-    queryset = Photo.object.all()
+    queryset = Photo.objects.all()
 
     @action(detail=True, methods=['post'])
     def add_photo(request):
@@ -18,7 +18,7 @@ class PhotoView(viewsets.ModelViewSet):
             serializer.save()
             return Response(request.data, status=status.HTTP_200_OK)
     
-    @action(detail=True, method=['delete'])
+    @action(detail=True, methods=['delete'])
     def delete_photo(request, pk):
-        photo = Photo.object.get(id=pk)
+        photo = Photo.objects.get(id=pk)
         photo.delete()
