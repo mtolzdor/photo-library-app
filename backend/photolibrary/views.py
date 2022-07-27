@@ -17,6 +17,8 @@ class PhotoView(viewsets.ModelViewSet):
         if serializer.is_valid():
             serializer.save()
             return Response(request.data, status=status.HTTP_200_OK)
+        else:
+            return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     @action(detail=True, methods=['delete'])
     def delete_photo(request, pk):

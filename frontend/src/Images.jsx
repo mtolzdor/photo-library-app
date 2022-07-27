@@ -19,7 +19,7 @@ const Images = ({ photos, onDelete }) => {
         style={imgSize}
       ></CardImg>
       <CardBody>
-        <CardTitle tag="h3">Temp</CardTitle>
+        <CardTitle tag="h3">{photo.name}</CardTitle>
         <button onClick={() => onDelete(photo.id)}>delete</button>
       </CardBody>
     </Card>

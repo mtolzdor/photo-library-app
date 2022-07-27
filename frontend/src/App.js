@@ -2,14 +2,15 @@ import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
 import Images from "./Images";
+import AddImage from "./AddImage";
 import { Input } from "reactstrap";
 
 function App() {
   const [photos, setPhotos] = useState([]);
-  const [postData, setPost] = useState(null);
+  const [search, setSearch] = useState("");
 
   const fetchImages = async () => {
-    await axios.get("http://localhost:8000/photos/").then((res) => {
+    await axios.get("http://localhost:8000/photo/").then((res) => {
       const result = res.data;
       setPhotos(result);
     });
@@ -19,15 +20,23 @@ function App() {
     fetchImages();
   }, []);
 
-  const postImages = () => {
+  const getImage = async (id) => {
+    await axios.get(`http://localhost:8000/photo/${id}`).then((res) => {
+      return res.data;
+    });
+  };
+
+  const postImages = async (image) => {
     let newPhoto = new FormData();
-    newPhoto.append("photo", postData);
-    axios
-      .post("http://localhost:8000/photos/", newPhoto, {
+    newPhoto.append("name", image.name);
+    newPhoto.append("photo", image.file);
+    await axios
+      .post("http://localhost:8000/photo/", newPhoto, {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((res) => {
         console.log(res);
+        setPhotos([...photos, res.data]);
       })
       .catch((error) => {
         console.log(error.response);
@@ -35,7 +44,7 @@ function App() {
   };
 
   const deleteImages = (id) => {
-    axios.delete(`http://localhost:8000/photos/${id}`).catch((error) => {
+    axios.delete(`http://localhost:8000/photo/${id}`).catch((error) => {
       if (error.response) {
         console.log(error.response);
       } else if (error.request) {
@@ -55,18 +64,16 @@ function App() {
   return (
     <>
       <div className="header"></div>
-      <form>
-        <Input name="search" type="search" onChange={handleSearch}></Input>
-      </form>
       <div>
-        <Input
-          type="file"
-          onChange={(i) => {
-            setPost(i.target.files[0]);
-          }}
-        ></Input>
-        <button onClick={postImages}>Submit</button>
+        <AddImage processImage={postImages}></AddImage>
       </div>
+      <form>
+        <Input
+          name="search"
+          type="search"
+          onChange={(e) => setSearch(e.target.value)}
+        ></Input>
+      </form>
       <Images photos={photos} onDelete={deleteImages}></Images>
     </>
   );

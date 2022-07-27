@@ -4,6 +4,7 @@ from django.db import models
 
 
 class Photo(models.Model):
+    name = models.CharField(max_length=120, default='New Photo')
     photo = models.ImageField(upload_to='images')
 
 
