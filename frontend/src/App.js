@@ -9,16 +9,22 @@ function App() {
   const [photos, setPhotos] = useState([]);
   const [search, setSearch] = useState("");
 
+  useEffect(() => {
+    function getImages() {
+      fetchImages();
+
+      if (search != "") {
+        handleSearch();
+      }
+    }
+    getImages();
+  }, []);
+
   const fetchImages = async () => {
     await axios.get("http://localhost:8000/photo/").then((res) => {
-      const result = res.data;
-      setPhotos(result);
+      setPhotos(res.data);
     });
   };
-
-  useEffect(() => {
-    fetchImages();
-  }, []);
 
   const getImage = async (id) => {
     await axios.get(`http://localhost:8000/photo/${id}`).then((res) => {
@@ -54,28 +60,39 @@ function App() {
     setPhotos(photos.filter((photo) => photo.id !== id));
   };
 
-  const handleSearch = (e) => {
-    const filterLib = photos.filter(
-      (photo) => photo.id === parseInt(e.target.value)
-    );
-    setPhotos(filterLib);
+  const handleSearch = (value) => {
+    const filterLib = photos.filter((photo) => photo.name === value);
+    setSearch(filterLib);
   };
 
   return (
-    <>
-      <div className="header"></div>
-      <div>
-        <AddImage processImage={postImages}></AddImage>
+    <div className="grid-box">
+      <div className="header">
+        <h1>PhotoLib</h1>
       </div>
-      <form>
+      <div className="src-bar">
         <Input
           name="search"
           type="search"
-          onChange={(e) => setSearch(e.target.value)}
+          placeholder="Search"
+          onChange={(e) => handleSearch(e.target.value)}
         ></Input>
-      </form>
-      <Images photos={photos} onDelete={deleteImages}></Images>
-    </>
+      </div>
+      <div className="btn-add">
+        <AddImage processImage={postImages}></AddImage>
+      </div>
+      <div className="container">
+        <div className="brd-box">
+          <div className="lib">
+            {search.length > 0 ? (
+              <Images photos={search} onDelete={deleteImages}></Images>
+            ) : (
+              <Images photos={photos} onDelete={deleteImages}></Images>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
 

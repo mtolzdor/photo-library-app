@@ -7,6 +7,7 @@ import {
   Row,
   Col,
   Container,
+  CardImgOverlay,
 } from "reactstrap";
 
 const Images = ({ photos, onDelete }) => {
@@ -18,10 +19,12 @@ const Images = ({ photos, onDelete }) => {
         alt="new_image"
         style={imgSize}
       ></CardImg>
-      <CardBody>
-        <CardTitle tag="h3">{photo.name}</CardTitle>
-        <button onClick={() => onDelete(photo.id)}>delete</button>
-      </CardBody>
+      <CardImgOverlay>
+        <CardTitle tag="h4" style={txtStyle}>
+          {photo.name}
+        </CardTitle>
+      </CardImgOverlay>
+      <button onClick={() => onDelete(photo.id)}>delete</button>
     </Card>
   ));
 
@@ -29,7 +32,7 @@ const Images = ({ photos, onDelete }) => {
     <Container fluid>
       <Row>
         {imgArr.map((pic) => (
-          <Col sm="3">{pic}</Col>
+          <Col sm="4">{pic}</Col>
         ))}
       </Row>
     </Container>
@@ -38,9 +41,14 @@ const Images = ({ photos, onDelete }) => {
 
 const imgSize = {
   objectFit: "cover",
-  maxWidth: 325,
   height: 250,
-  width: "auto",
+  width: "100%",
+};
+
+const txtStyle = {
+  textAlign: "left",
+  color: "Black",
+  fontFamily: "Proxima Nova",
 };
 
 export default Images;
