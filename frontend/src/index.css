@@ -1,18 +1,25 @@
-
-
 .container {
   display: flex;
   justify-content: center;
-  padding-top: 100px;
+  padding-top: 50px;
+}
+
+.src-bar {
+  
+}
+
+.pho-lib {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 3px;
 }
 
 .brd-box {
-  border-radius: 3px;
+  border-radius: 7px;
   box-shadow: 0 2px 15px;
-  width: 2000px;
-  padding: 5px;
-  display: grid;
-  grid-template-columns: 1fr;
+  width: 1200px;
+  min-height: 800px;
+  padding: 1px;
   background-color: lightcyan;
 }
 
@@ -23,10 +30,6 @@
   display: flex;
   justify-content: left;
   align-items: center;
-}
-
-.src-bar {
-  grid-area: src-bar;
 }
 
 .btn-add {

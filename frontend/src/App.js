@@ -12,10 +12,6 @@ function App() {
   useEffect(() => {
     function getImages() {
       fetchImages();
-
-      if (search != "") {
-        handleSearch();
-      }
     }
     getImages();
   }, []);
@@ -70,20 +66,20 @@ function App() {
       <div className="header">
         <h1>PhotoLib</h1>
       </div>
-      <div className="src-bar">
-        <Input
-          name="search"
-          type="search"
-          placeholder="Search"
-          onChange={(e) => handleSearch(e.target.value)}
-        ></Input>
-      </div>
       <div className="btn-add">
         <AddImage processImage={postImages}></AddImage>
       </div>
       <div className="container">
         <div className="brd-box">
-          <div className="lib">
+          <div className="src-box">
+            <Input
+              name="search"
+              type="search"
+              placeholder="Search"
+              onChange={(e) => handleSearch(e.target.value)}
+            ></Input>
+          </div>
+          <div className="pho-lib">
             {search.length > 0 ? (
               <Images photos={search} onDelete={deleteImages}></Images>
             ) : (
