@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'photolibrary',
     'rest_framework',
     'corsheaders',
+    'django_cleanup.apps.CleanupConfig',
 ]
 
 MIDDLEWARE = [

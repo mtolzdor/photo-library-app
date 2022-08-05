@@ -9,6 +9,7 @@ pillow = "*"
 djangorestframework = "*"
 django-cors-headers = "*"
 python-decouple = "*"
+django-cleanup = "*"
 
 [dev-packages]
 

@@ -4,14 +4,10 @@
   padding-top: 50px;
 }
 
-.src-bar {
-  
-}
-
 .pho-lib {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
-  gap: 3px;
+  gap: 1px;
 }
 
 .brd-box {
@@ -19,7 +15,7 @@
   box-shadow: 0 2px 15px;
   width: 1200px;
   min-height: 800px;
-  padding: 1px;
+  padding: 2px;
   background-color: lightcyan;
 }
 
@@ -32,10 +28,10 @@
   align-items: center;
 }
 
-.btn-add {
-  grid-area: btn-add;
-}
-
-.lib {
-  grid-area: lib;
+.footer {
+  width: auto;
+  bottom:0 ;
+  background-color: darkgrey;
+  Height: 150px;
+  margin-top: 50px;
 }

@@ -37,7 +37,6 @@ function App() {
         headers: { "content-type": "multipart/form-data" },
       })
       .then((res) => {
-        console.log(res);
         setPhotos([...photos, res.data]);
       })
       .catch((error) => {
@@ -57,12 +56,14 @@ function App() {
   };
 
   const handleSearch = (value) => {
-    const filterLib = photos.filter((photo) => photo.name === value);
+    const filterLib = photos.filter((photo) =>
+      photo.name.toLowerCase().includes(value.toLowerCase())
+    );
     setSearch(filterLib);
   };
 
   return (
-    <div className="grid-box">
+    <div>
       <div className="header">
         <h1>PhotoLib</h1>
       </div>
@@ -88,6 +89,7 @@ function App() {
           </div>
         </div>
       </div>
+      <div className="footer"></div>
     </div>
   );
 }
