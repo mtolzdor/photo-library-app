@@ -1,8 +1,8 @@
 import React from "react";
 import axios from "axios";
 import { useState, useEffect } from "react";
-import Images from "./Images";
-import AddImage from "./AddImage";
+import Images from "./components/Images";
+import AddImage from "./components/AddImage";
 import { Input } from "reactstrap";
 
 function App() {
@@ -17,15 +17,14 @@ function App() {
   }, []);
 
   const fetchImages = async () => {
-    await axios.get("http://localhost:8000/photo/").then((res) => {
-      setPhotos(res.data);
-    });
-  };
-
-  const getImage = async (id) => {
-    await axios.get(`http://localhost:8000/photo/${id}`).then((res) => {
-      return res.data;
-    });
+    await axios
+      .get("http://localhost:8000/photo/")
+      .then((res) => {
+        setPhotos(res.data);
+      })
+      .catch((error) => {
+        console.log(error.response);
+      });
   };
 
   const postImages = async (image) => {
